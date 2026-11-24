@@ -66,15 +66,3 @@ test('/wake/ serves the SDK, model and keyword file byte for byte', async ({ req
     );
   }
 });
-
-test('standalone example listens and releases the microphone', async ({ page }) => {
-  const errors: string[] = [];
-  page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/examples/wake.html');
-  await page.getByRole('button', { name: 'Enable microphone' }).click();
-  await expect(page.getByRole('status')).toHaveText('Listening. Say “computer”.');
-  await page.getByRole('button', { name: 'Stop' }).click();
-  await expect(page.getByRole('status')).toHaveText('Stopped. Microphone released.');
-  await expect(page.getByRole('button', { name: 'Enable microphone' })).toBeEnabled();
-  expect(errors).toEqual([]);
-});

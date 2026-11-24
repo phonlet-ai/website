@@ -177,12 +177,18 @@ test('public content routes and unknown routes return the right status', async (
     '/docs/python',
     '/docs/c',
     '/docs/android',
-    '/examples/wake.html',
   ];
   for (const path of paths) {
     expect((await request.get(path)).status(), path).toBe(200);
   }
-  for (const gone of ['/playground', '/products', '/cookbook', '/branding', '/open-source']) {
+  for (const gone of [
+    '/playground',
+    '/products',
+    '/cookbook',
+    '/branding',
+    '/open-source',
+    '/examples/wake.html',
+  ]) {
     expect((await request.get(gone)).status(), gone).toBe(404);
   }
   expect((await request.get('/this-page-does-not-exist')).status()).toBe(404);

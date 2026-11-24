@@ -7,19 +7,27 @@ let loading = null;
 async function download(url) {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`cannot load the generator: HTTP ${response.status}`);
-  const total = Number(response.headers.get('content-length')) || 0;
-  if (!response.body || !total) return new Uint8Array(await response.arrayBuffer());
-  const bytes = new Uint8Array(total);
+  // Content-Length counts the bytes on the wire. A compressed response (GitHub Pages gzips the
+  // module) decodes to more than that, so it only estimates the progress; the chunks decide.
+  const length = Number(response.headers.get('content-length')) || 0;
+  if (!response.body || !length) return new Uint8Array(await response.arrayBuffer());
+  const chunks = [];
   const reader = response.body.getReader();
   let loaded = 0;
   for (;;) {
     const { done, value } = await reader.read();
     if (done) break;
-    bytes.set(value, loaded);
+    chunks.push(value);
     loaded += value.length;
-    self.postMessage({ progress: [loaded, total] });
+    self.postMessage({ progress: [loaded, Math.max(length, loaded)] });
   }
-  return bytes.subarray(0, loaded);
+  const bytes = new Uint8Array(loaded);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.length;
+  }
+  return bytes;
 }
 
 async function load() {

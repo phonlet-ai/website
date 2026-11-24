@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { CodeBlock, espSpec } from './code-block';
 import { GetSdk } from './get-sdk';
+import { releaseUrl } from '@/lib/release';
 import { espCode, quickstartCode } from '@/lib/samples';
 import { sdkDocs, type SdkDoc } from '@/lib/sdk-docs';
 export const docPages = [
@@ -168,9 +169,10 @@ export function DocsContent({ slug }: { slug: string }) {
         </p>
         <h2>Try a complete example</h2>
         <p>
-          <a href="/examples/wake.html">Open the standalone wake example</a>. It uses the same SDK
-          and model as the lab on the home page, with an intentionally small interface you can
-          inspect in your browser.
+          The <Link href="/#lab">lab</Link> on the home page runs this SDK live. For a project to
+          start from, download <code>wake-demo-web-0.1.0.tar.gz</code> from the{' '}
+          <a href={releaseUrl}>release</a>: a page with the SDK, the model and a keyword file, ready
+          to serve from your own origin.
         </p>
         <h2>Choose your phrases</h2>
         <p>
