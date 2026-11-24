@@ -112,6 +112,10 @@ const faq = [
     'Every phrase is calibrated to a false-alarm target, from about 10 per hour of speech at full sensitivity to 0.1, and reports how reliable that calibration is. Accuracy depends on the phrase and the room, so try yours above. We publish no comparative claims before a benchmark with its method.',
   ],
   [
+    'How is it different from openWakeWord and microWakeWord?',
+    'Both train a small model for each wake word from synthetic speech: openWakeWord runs on Linux-class CPUs, microWakeWord on the ESP32-S3. Phonlet Wake needs no training run. One model hears the sounds of English, so a new phrase is ready in seconds, many phrases share one 1 MB model, and the same file runs from a browser to an ESP32-S3.',
+  ],
+  [
     'Does my audio leave the device?',
     'No. The engine runs where the microphone is. On this page it runs in a WebAssembly worker in your tab: nothing is uploaded, stored or recorded.',
   ],
@@ -119,6 +123,56 @@ const faq = [
     'What makes a good wake word?',
     'Two to four syllables with sounds that are rare in everyday speech. “Hey barista” works well; “the” never will. The generator warns when a phrase is too short, too long or too common.',
   ],
+];
+
+// Facts from each project's own README and the Home Assistant blog (checked 2026-11-24); no
+// accuracy comparison before a published benchmark.
+const compared = [
+  {
+    name: 'Phonlet Wake',
+    tag: 'TYPED, NOT TRAINED',
+    hot: true,
+    facts: [
+      [
+        'A new wake word',
+        'Type it. Thresholds are calibrated from text in seconds, in your browser or on the command line.',
+      ],
+      ['Models', 'One 1 MB model for every phrase; it listens for several phrases at once.'],
+      ['Runs on', 'Linux, Windows, browsers (WebAssembly), Android and ESP32-S3.'],
+      ['Licence', 'PolyForm Noncommercial 1.0.0; commercial licence on request.'],
+    ],
+  },
+  {
+    name: 'openWakeWord',
+    tag: 'A MODEL PER WORD',
+    source: 'https://github.com/dscripka/openWakeWord',
+    facts: [
+      [
+        'A new wake word',
+        'Train a model for it on synthetic speech, plus negative audio; a basic model takes under an hour in a notebook.',
+      ],
+      ['Models', 'One small model per word, on a shared feature extractor.'],
+      [
+        'Runs on',
+        'Linux-class CPUs: 15 to 20 models on one Raspberry Pi 3 core. Too large for microcontrollers.',
+      ],
+      ['Licence', 'Code Apache 2.0; the pretrained models CC BY-NC-SA 4.0 (non-commercial).'],
+    ],
+  },
+  {
+    name: 'microWakeWord',
+    tag: 'A MODEL PER WORD',
+    source: 'https://github.com/kahrendt/microWakeWord',
+    facts: [
+      [
+        'A new wake word',
+        'Train a model for it on synthetic speech; training is meant for advanced users.',
+      ],
+      ['Models', 'One model per word, for TensorFlow Lite for Microcontrollers.'],
+      ['Runs on', 'ESP32-S3 devices with ESPHome.'],
+      ['Licence', 'Apache 2.0.'],
+    ],
+  },
 ];
 
 export default function Home() {
@@ -370,9 +424,60 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section page-width" id="compare" aria-labelledby="compare-title">
+        <div className="section-head" data-reveal>
+          <SectionLabel index="05">COMPARED</SectionLabel>
+          <h2 id="compare-title">
+            openWakeWord, microWakeWord <em>and Phonlet Wake.</em>
+          </h2>
+          <p>
+            openWakeWord and microWakeWord are good open-source wake-word engines, and both train a
+            small model for each word. Phonlet Wake skips the training run: one model hears the
+            sounds of English, so a new phrase is only its pronunciations and two thresholds.
+          </p>
+        </div>
+        <div className="compare-grid">
+          {compared.map((engine, i) => (
+            <article
+              key={engine.name}
+              className={`licence-card compare-card spot${engine.hot ? ' is-hot' : ''}`}
+              data-reveal
+              style={{ ['--d' as string]: i }}
+            >
+              <span className="mono">{engine.tag}</span>
+              <h3>{engine.name}</h3>
+              <dl>
+                {engine.facts.map(([term, detail]) => (
+                  <div key={term}>
+                    <dt>{term}</dt>
+                    <dd>{detail}</dd>
+                  </div>
+                ))}
+              </dl>
+              {engine.source ? (
+                <a href={engine.source} className="text-link">
+                  {engine.name} on GitHub <ArrowUpRight size={15} />
+                </a>
+              ) : (
+                <Link href="/#lab" className="text-link">
+                  Try it above <ArrowUpRight size={15} />
+                </Link>
+              )}
+            </article>
+          ))}
+        </div>
+        <p className="licence-note mono" data-reveal>
+          From each project’s README and the{' '}
+          <a href="https://www.home-assistant.io/blog/2024/02/21/voice-chapter-6/">
+            Home Assistant blog
+          </a>
+          , November 2026. No accuracy comparison until a benchmark with its method is published.
+        </p>
+      </section>
+
       <section className="section page-width" id="licence" aria-labelledby="licence-title">
         <div className="section-head" data-reveal>
-          <SectionLabel index="05">LICENCE</SectionLabel>
+          <SectionLabel index="06">LICENCE</SectionLabel>
           <h2 id="licence-title">
             Free to build with. <em>Fair when you sell.</em>
           </h2>
@@ -422,7 +527,7 @@ export default function Home() {
 
       <section className="section page-width faq" aria-labelledby="faq-title">
         <div className="section-head" data-reveal>
-          <SectionLabel index="06">QUESTIONS</SectionLabel>
+          <SectionLabel index="07">QUESTIONS</SectionLabel>
           <h2 id="faq-title">
             Curious? <em>Good.</em>
           </h2>

@@ -1480,6 +1480,36 @@ html:not(.motion-ready) .meter-bar i {
   text-align: center;
 }
 
+/* ---------- Compared ---------- */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.compare-card dl {
+  display: grid;
+  gap: 18px;
+  margin: 0 0 6px;
+}
+.compare-card dt {
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.compare-card dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.licence-note a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---------- Questions and closing ---------- */
 .faq .faq-list {
   max-width: 920px;
@@ -1534,6 +1564,14 @@ html:not(.motion-ready) .meter-bar i {
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 1080px) {
+  .compare-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .compare-card dl > div {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.4fr) minmax(0, 1fr);
+    gap: 16px;
+  }
   .hero-grid {
     grid-template-columns: minmax(0, 1fr);
     padding-top: 56px;
@@ -1556,6 +1594,9 @@ html:not(.motion-ready) .meter-bar i {
   }
 }
 @media (max-width: 720px) {
+  .compare-card dl > div {
+    display: block;
+  }
   .section-head {
     grid-template-columns: minmax(0, 1fr);
   }

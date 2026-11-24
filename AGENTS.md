@@ -24,8 +24,9 @@ browser tests. Every page is prerendered into `out/` and served by GitHub Pages.
 
 ## Rules
 
-- **One product.** The site is about Phonlet Wake only. No prices, no competitor names, no
-  comparative accuracy claims before a published benchmark.
+- **One product.** The site is about Phonlet Wake only. No prices. Other engines are named only
+  in the sourced comparison (`/#compare`: openWakeWord and microWakeWord, from their READMEs);
+  no comparative accuracy claims before a published benchmark.
 - **Claims match evidence.** Every figure names its source in PLAN.md: ESP32-S3 numbers are the
   ones measured on hardware, memory and CPU figures name the build and the measurement. Never
   present a preview as live inference or an estimate as a measurement.

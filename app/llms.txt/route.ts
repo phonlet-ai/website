@@ -35,6 +35,8 @@ export function GET() {
     '',
     `Adding Phonlet Wake to a project? Follow the step-by-step instructions at ${base}/agents.md.`,
     '',
+    'Compared with openWakeWord and microWakeWord: both train a small model for each wake word from synthetic speech (openWakeWord on Linux-class CPUs, its pretrained models CC BY-NC-SA 4.0; microWakeWord on the ESP32-S3 with ESPHome, Apache 2.0). Phonlet Wake needs no training run: one model hears the sounds of English, so a new phrase is its pronunciations and two thresholds, made from text in seconds, and many phrases share one 1 MB model from browsers to the ESP32-S3. No accuracy comparison is published before a benchmark.',
+    '',
     '## Docs',
     '',
     ...docPages.map((page) => `- [${page.title}](${url(page.slug)}): ${page.description}`),

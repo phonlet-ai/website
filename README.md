@@ -31,17 +31,17 @@ synthetic microphone, one worker and the server at `TEST_BASE_URL` (default
 
 ## Pages
 
-| Route                 | Content                                                                                                              |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `/`                   | The lab (`/#lab`), footprint, how it works (`/#how`), developers (`/#developers`), ESP32-S3, licence, questions      |
-| `/generator/`         | Many phrases at once: the keyword file as a table and JSON, download, live test                                      |
-| `/docs/`              | Getting started, browser quickstart, Node.js, Python, C / C++, Android, ESP32-S3, custom wake words, audio lifecycle |
-| `/llms.txt`           | The docs as Markdown for AI assistants, built from the same source as the pages                                      |
-| `/agents.md`          | Instructions for AI coding agents: make the keyword file, download the SDK, the code for each platform               |
-| `/contact/`           | Licence enquiry, prepared in the browser (download, copy, or open in an email app)                                   |
-| `/privacy/`           | What the lab does with audio, theme storage, site requests                                                           |
-| `/wake/`              | Stable paths used by the code samples: the browser SDK (`index.mjs`, `capture.mjs`), `model.pwake`, `keywords.json`  |
-| `/examples/wake.html` | Standalone wake example on the same SDK                                                                              |
+| Route                 | Content                                                                                                                                                                     |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                   | The lab (`/#lab`), footprint, how it works (`/#how`), developers (`/#developers`), ESP32-S3, compared with openWakeWord and microWakeWord (`/#compare`), licence, questions |
+| `/generator/`         | Many phrases at once: the keyword file as a table and JSON, download, live test                                                                                             |
+| `/docs/`              | Getting started, browser quickstart, Node.js, Python, C / C++, Android, ESP32-S3, custom wake words, audio lifecycle                                                        |
+| `/llms.txt`           | The docs as Markdown for AI assistants, built from the same source as the pages                                                                                             |
+| `/agents.md`          | Instructions for AI coding agents: make the keyword file, download the SDK, the code for each platform                                                                      |
+| `/contact/`           | Licence enquiry, prepared in the browser (download, copy, or open in an email app)                                                                                          |
+| `/privacy/`           | What the lab does with audio, theme storage, site requests                                                                                                                  |
+| `/wake/`              | Stable paths used by the code samples: the browser SDK (`index.mjs`, `capture.mjs`), `model.pwake`, `keywords.json`                                                         |
+| `/examples/wake.html` | Standalone wake example on the same SDK                                                                                                                                     |
 
 Light and dark palettes follow the system until the visitor picks one, which the browser
 remembers; the hero and the ESP32-S3 section are dark in both.

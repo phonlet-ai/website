@@ -8,6 +8,13 @@ The site is live at phonletai.com, served by GitHub Pages. Open work, lowest fir
 
 ## Done
 
+- [x] 2026-11-24 Compared with openWakeWord and microWakeWord (`/#compare`, a question, and a
+      paragraph in `llms.txt`): how a new word is made, models, where each runs and licences, from
+      the openWakeWord and microWakeWord READMEs and the Home Assistant blog (2024-02-21), no
+      accuracy comparison. Docs pages give the install command for each SDK and where the
+      example's model comes from (`lib/release.ts`, shared with `agents.md`). Verified: `npm run
+    check`, build, Playwright 17 passed (the detection test once flaky under load, then 5/5).
+
 - [x] 2026-11-24 Static site on GitHub Pages: `output: 'export'` with trailing slashes,
       `public/CNAME` and `.nojekyll`, the social image as a static `og.png`, `robots.txt`,
       `sitemap.xml`, `llms.txt` and the new `agents.md` (instructions for AI coding agents: the
