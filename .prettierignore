@@ -1,0 +1,10 @@
+node_modules/
+.next/
+public/engine/
+public/models/
+provenance.json
+PROVENANCE.md
+package-lock.json
+artifacts/
+test-results/
+backend/

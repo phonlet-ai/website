@@ -1,0 +1,281 @@
+{
+  "model": {
+    "id": "en-1",
+    "sha256": "8be3687d060f953d0069480cf53d1fd0aa66e04551c2a4b600823a992a864af8"
+  },
+  "keywords": [
+    {
+      "name": "hey nova",
+      "pronunciations": [
+        [
+          16,
+          13,
+          23,
+          25,
+          35,
+          3
+        ]
+      ],
+      "threshold_loose": -1.267578125,
+      "threshold_strict": -0.9033203125,
+      "endpoint": false,
+      "metadata": {
+        "source": "lexicon",
+        "expected_error": {
+          "threshold_loose": 56.7,
+          "threshold_strict": 59.5,
+          "default": 59.1
+        },
+        "fa_factor_at_default": 2.09,
+        "flag": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "computer",
+      "pronunciations": [
+        [
+          20,
+          3,
+          22,
+          27,
+          37,
+          34,
+          31,
+          12
+        ]
+      ],
+      "threshold_loose": -1.255859375,
+      "threshold_strict": -0.7802734375,
+      "endpoint": false,
+      "metadata": {
+        "source": "lexicon",
+        "expected_error": {
+          "threshold_loose": 45.9,
+          "threshold_strict": 71.8,
+          "default": 54.4
+        },
+        "fa_factor_at_default": 1.66,
+        "flag": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "okay kettle",
+      "pronunciations": [
+        [
+          25,
+          20,
+          13,
+          20,
+          11,
+          31,
+          3,
+          21
+        ]
+      ],
+      "threshold_loose": -1.2548828125,
+      "threshold_strict": -0.919921875,
+      "endpoint": false,
+      "metadata": {
+        "source": "lexicon",
+        "expected_error": {
+          "threshold_loose": 33.5,
+          "threshold_strict": 37.0,
+          "default": 29.5
+        },
+        "fa_factor_at_default": 1.49,
+        "flag": false,
+        "warnings": []
+      }
+    },
+    {
+      "name": "hey marvin",
+      "pronunciations": [
+        [
+          16,
+          13,
+          22,
+          1,
+          28,
+          35,
+          17,
+          23
+        ]
+      ],
+      "threshold_loose": -1.369140625,
+      "threshold_strict": -1.0302734375,
+      "endpoint": false,
+      "metadata": {
+        "source": "lexicon",
+        "expected_error": {
+          "threshold_loose": 38.6,
+          "threshold_strict": 42.1,
+          "default": 37.3
+        },
+        "fa_factor_at_default": 1.65,
+        "flag": false,
+        "warnings": []
+      }
+    }
+  ],
+  "metadata": {
+    "generator": "wake-threshold 0.2.0",
+    "rate_loose": 10.0,
+    "rate_strict": 0.1,
+    "unknown": [],
+    "resolved": [
+      {
+        "text": "hey nova",
+        "source": "lexicon",
+        "words": [
+          {
+            "word": "HEY",
+            "source": "lexicon",
+            "pronunciations": [
+              "HH EY"
+            ]
+          },
+          {
+            "word": "NOVA",
+            "source": "lexicon",
+            "pronunciations": [
+              "N OW V AH"
+            ]
+          }
+        ],
+        "generated_words": [],
+        "variants": [
+          [
+            16,
+            13,
+            23,
+            25,
+            35,
+            3
+          ]
+        ],
+        "pronunciations": [
+          "HH EY N OW V AH"
+        ],
+        "variant_combinations": 1,
+        "variants_truncated": false,
+        "lexicon_sha256": "229dfaa8a3de1a560e4fcfb246793594287be12e6c614374f8704479c6c25220",
+        "g2p_asset_sha256": "a56deadd7331ffd079d79ab2f7da422e7dd33d05daafc55fde56320119ad4308"
+      },
+      {
+        "text": "computer",
+        "source": "lexicon",
+        "words": [
+          {
+            "word": "COMPUTER",
+            "source": "lexicon",
+            "pronunciations": [
+              "K AH M P Y UW T ER"
+            ]
+          }
+        ],
+        "generated_words": [],
+        "variants": [
+          [
+            20,
+            3,
+            22,
+            27,
+            37,
+            34,
+            31,
+            12
+          ]
+        ],
+        "pronunciations": [
+          "K AH M P Y UW T ER"
+        ],
+        "variant_combinations": 1,
+        "variants_truncated": false,
+        "lexicon_sha256": "229dfaa8a3de1a560e4fcfb246793594287be12e6c614374f8704479c6c25220",
+        "g2p_asset_sha256": "a56deadd7331ffd079d79ab2f7da422e7dd33d05daafc55fde56320119ad4308"
+      },
+      {
+        "text": "okay kettle",
+        "source": "lexicon",
+        "words": [
+          {
+            "word": "OKAY",
+            "source": "lexicon",
+            "pronunciations": [
+              "OW K EY"
+            ]
+          },
+          {
+            "word": "KETTLE",
+            "source": "lexicon",
+            "pronunciations": [
+              "K EH T AH L"
+            ]
+          }
+        ],
+        "generated_words": [],
+        "variants": [
+          [
+            25,
+            20,
+            13,
+            20,
+            11,
+            31,
+            3,
+            21
+          ]
+        ],
+        "pronunciations": [
+          "OW K EY K EH T AH L"
+        ],
+        "variant_combinations": 1,
+        "variants_truncated": false,
+        "lexicon_sha256": "229dfaa8a3de1a560e4fcfb246793594287be12e6c614374f8704479c6c25220",
+        "g2p_asset_sha256": "a56deadd7331ffd079d79ab2f7da422e7dd33d05daafc55fde56320119ad4308"
+      },
+      {
+        "text": "hey marvin",
+        "source": "lexicon",
+        "words": [
+          {
+            "word": "HEY",
+            "source": "lexicon",
+            "pronunciations": [
+              "HH EY"
+            ]
+          },
+          {
+            "word": "MARVIN",
+            "source": "lexicon",
+            "pronunciations": [
+              "M AA R V IH N"
+            ]
+          }
+        ],
+        "generated_words": [],
+        "variants": [
+          [
+            16,
+            13,
+            22,
+            1,
+            28,
+            35,
+            17,
+            23
+          ]
+        ],
+        "pronunciations": [
+          "HH EY M AA R V IH N"
+        ],
+        "variant_combinations": 1,
+        "variants_truncated": false,
+        "lexicon_sha256": "229dfaa8a3de1a560e4fcfb246793594287be12e6c614374f8704479c6c25220",
+        "g2p_asset_sha256": "a56deadd7331ffd079d79ab2f7da422e7dd33d05daafc55fde56320119ad4308"
+      }
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+[
+  {
+    "path": "public/generator/LICENSE",
+    "sha256": "3c75f1022a4f966b94d693f22686407f13c8afe9297f4f224e42fb5d2ed8fb44"
+  },
+  {
+    "path": "public/generator/THIRD_PARTY_NOTICES.md",
+    "sha256": "824a6fda4e8c30d9b1699c5780f6b51e939ac7b662a14b026afcfc6241169b39"
+  },
+  {
+    "path": "public/generator/wake_threshold.wasm",
+    "sha256": "bbb5cb9e40b0941a53474dfc2206a1901c2fee8b935bd3763980f68bc1957107"
+  },
+  {
+    "path": "public/generator/worker.js",
+    "sha256": "6cf86cd783258d23f5a7992032372fd3f38542df9de786bc88c2c446ac5d7542"
+  },
+  {
+    "path": "public/wake/LICENSE",
+    "sha256": "3c75f1022a4f966b94d693f22686407f13c8afe9297f4f224e42fb5d2ed8fb44"
+  },
+  {
+    "path": "public/wake/THIRD_PARTY_NOTICES.md",
+    "sha256": "d9ab987ff1a0802b8bc8367e3395c8d4d43ae26c4ec3c0e63b57bea7048a057c"
+  },
+  {
+    "path": "public/wake/capture-worklet.mjs",
+    "sha256": "f7a98996483d7feb2d92d47de64742c4a7e63bf4b94ead40cce3d31b8b5b9199"
+  },
+  {
+    "path": "public/wake/capture.mjs",
+    "sha256": "6eb61ca6314bdd55f5a57bf30a37a0f9891df92f4c57944a25dd0e57875fc0df"
+  },
+  {
+    "path": "public/wake/dist/kws_engine.mjs",
+    "sha256": "6a68a1b900958513407d35f5ba6ce58b48c9a6152471a776f51aa29467a5fdce"
+  },
+  {
+    "path": "public/wake/dist/kws_engine.simd.mjs",
+    "sha256": "f91ab034be56f90826c45254aaa200fbe5ca1588c90affb67604d6016e8609be"
+  },
+  {
+    "path": "public/wake/dist/kws_engine.simd.wasm",
+    "sha256": "9fc0b1ff64a5ba69675457bf1df0c5effa7ffcd7f5e4c8d3f2d2792b2ceacd99"
+  },
+  {
+    "path": "public/wake/dist/kws_engine.wasm",
+    "sha256": "963195456e6814b022885717d766e049cea424baace2b69d19be2551216a4737"
+  },
+  {
+    "path": "public/wake/index.mjs",
+    "sha256": "4037b107fd7e93ef4110bf826fb044f6a8f71af71ae4a8d87a0ac2aca020734d"
+  },
+  {
+    "path": "public/wake/js/bindings.mjs",
+    "sha256": "b2847b1992dad33cfa7dd49de57e2cc15fbbc32c444dddf7eeca5b9cf55b0937"
+  },
+  {
+    "path": "public/wake/js/kws.mjs",
+    "sha256": "23efd52d9b312ac31eff50482f2bb79c446e6f58adca92f17a33e97fd86ed1cf"
+  },
+  {
+    "path": "public/wake/keywords.json",
+    "sha256": "8a075fd4d7f596a9ccdbb5aaeb8443a331a4894020224855e10861b9ae329921"
+  },
+  {
+    "path": "public/wake/model.pwake",
+    "sha256": "8be3687d060f953d0069480cf53d1fd0aa66e04551c2a4b600823a992a864af8"
+  },
+  {
+    "path": "public/wake/shared.mjs",
+    "sha256": "10d8e530dc4f553bbf6f0dcb6e4a2ef5b079b769f16dff3c8f31cdc2275c03c9"
+  },
+  {
+    "path": "public/wake/worker.mjs",
+    "sha256": "3e70b71941265e692e1bba2b76fc1b3bea6f78365182e4ea4e07ff0e744cfc1e"
+  }
+]
