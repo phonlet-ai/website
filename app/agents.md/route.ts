@@ -6,6 +6,8 @@ import { sdkDocs } from '@/lib/sdk-docs';
 import { espCode, keywordFileCode, quickstartCode, wakeCode } from '@/lib/samples';
 import {
   GENERATOR_FILE,
+  HF_MODEL,
+  HF_SPACE,
   KEYWORDS_FILE,
   MODEL_FILE,
   RELEASE,
@@ -143,6 +145,7 @@ export function GET() {
     `- Docs: ${base}/docs/`,
     `- Keyword file reference: ${repo}/blob/main/docs/keywords.md`,
     `- Source and releases: ${repo}`,
+    `- The model on Hugging Face: ${HF_MODEL}; the lab as a Space: ${HF_SPACE}`,
     `- Commercial licences: ${base}/contact/`,
     '',
   ].join('\n');

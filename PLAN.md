@@ -8,6 +8,10 @@ The site is live at phonletai.com, served by GitHub Pages. Open work, lowest fir
 
 ## Done
 
+- [x] 2026-11-24 Hugging Face: the footer links GitHub and the phonletai organisation, and
+      `agents.md` and `llms.txt` link the `en-1` model and the lab Space (`lib/release.ts`).
+      Verified: `npm run check`, build, Playwright 16 passed.
+
 - [x] 2026-11-24 The generator loads on GitHub Pages: Pages gzips the 18.7 MB module, so its
       Content-Length is the compressed size and the worker's preallocated buffer overflowed
       ("source array is too long"). The worker now collects the chunks; `scripts/serve.mjs` gzips
@@ -21,7 +25,7 @@ The site is live at phonletai.com, served by GitHub Pages. Open work, lowest fir
       the openWakeWord and microWakeWord READMEs and the Home Assistant blog (2024-02-21), no
       accuracy comparison. Docs pages give the install command for each SDK and where the
       example's model comes from (`lib/release.ts`, shared with `agents.md`). Verified: `npm run
-  check`, build, Playwright 17 passed (the detection test once flaky under load, then 5/5).
+check`, build, Playwright 17 passed (the detection test once flaky under load, then 5/5).
 
 - [x] 2026-11-24 Static site on GitHub Pages: `output: 'export'` with trailing slashes,
       `public/CNAME` and `.nojekyll`, the social image as a static `og.png`, `robots.txt`,

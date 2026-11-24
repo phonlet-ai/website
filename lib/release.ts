@@ -12,6 +12,11 @@ export const repoUrl = repo;
 export const releaseUrl = `${repo}/releases/tag/${RELEASE}`;
 export const assetUrl = (name: string) => `${repo}/releases/download/${RELEASE}/${name}`;
 
+// Phonlet Wake on Hugging Face: the organisation, the en-1 model and the lab as a Space.
+export const HF_ORG = 'https://huggingface.co/phonletai';
+export const HF_MODEL = 'https://huggingface.co/phonletai/wake-en-1';
+export const HF_SPACE = 'https://huggingface.co/spaces/phonletai/wake';
+
 export type Install = {
   /** Shell commands that install the SDK, when there is one to copy. */
   command?: string;

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Brand, Mark } from './brand';
+import { HF_ORG, repoUrl } from '@/lib/release';
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -30,6 +31,8 @@ export function Footer() {
           <Link href="/docs/wake-word">Browser quickstart</Link>
           <a href="/agents.md">Instructions for AI agents</a>
           <a href="/llms.txt">Docs index for AI (llms.txt)</a>
+          <a href={repoUrl}>Source on GitHub</a>
+          <a href={HF_ORG}>Hugging Face</a>
         </div>
         <div className="footer-column">
           <span>Phonlet</span>

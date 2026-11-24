@@ -4,6 +4,7 @@ import { docPages } from '@/components/docs-content';
 import { site } from '@/lib/site';
 import { sdkDocs } from '@/lib/sdk-docs';
 import { espCode, keywordFileCode, wakeCode } from '@/lib/samples';
+import { HF_MODEL, HF_SPACE, releaseUrl, repoUrl } from '@/lib/release';
 
 export const dynamic = 'force-static';
 
@@ -67,6 +68,8 @@ export function GET() {
     '## Optional',
     '',
     `- [Contact](${base}/contact/): commercial licences, help with phrases and hardware.`,
+    `- [Source and SDKs](${repoUrl}) and [release downloads](${releaseUrl}) on GitHub.`,
+    `- [The en-1 model on Hugging Face](${HF_MODEL}) and [the lab as a Space](${HF_SPACE}).`,
     '',
   ].join('\n');
   return new Response(text, { headers: { 'content-type': 'text/markdown; charset=utf-8' } });
