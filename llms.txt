@@ -1,0 +1,270 @@
+# Phonlet Wake
+
+> Custom wake words from text, on the device. Type a phrase and get a wake word with calibrated thresholds and a predicted false-alarm rate. One English model of about 1 MB runs every phrase offline: in the browser (WebAssembly), Node.js, Python, C / C++, Android, and on ESP32-S3.
+
+Licence: PolyForm Noncommercial License 1.0.0 (personal, study, noncommercial research, charities, schools, public research, government); a product, device or service needs a commercial licence, by contact. No licence keys or online checks.
+
+Make a wake word: type phrases at https://phonletai.com/generator/ (runs in the browser) and download keywords.json, the keyword file every SDK reads as it is:
+
+```json
+{
+  "model": {
+    "id": "en-1",
+    "sha256": "8be3687d060f953d0069480cf53d1fd0aa66e04551c2a4b600823a992a864af8"
+  },
+  "keywords": [
+    {
+      "name": "hey nova",
+      "pronunciations": [[16, 13, 23, 25, 35, 3]],
+      "threshold_loose": -1.267578125,
+      "threshold_strict": -0.9033203125,
+      "endpoint": false,
+      "metadata": { "source": "lexicon", "warnings": [] }
+    }
+  ]
+}
+```
+
+Audio for every SDK: mono, 16 kHz, signed 16-bit PCM, in chunks of any size (frames are 512 samples, 32 ms).
+
+Footprint: the en-1 model is 1,013,825 bytes (int8 weights) for every phrase. Memory while listening: about 1.05 MB (C API, Linux x64, four phrases); each extra phrase adds about 1.5 KB. CPU: 0.7% of one laptop core (AMD Ryzen 7 7735HS, native), about 8% in a browser (WebAssembly), 19% of one ESP32-S3 core at 240 MHz (weights 75 KB internal RAM + 934 KB PSRAM, 28 KB of tables and buffers).
+
+Adding Phonlet Wake to a project? Follow the step-by-step instructions at https://phonletai.com/agents.md.
+
+Compared with openWakeWord and microWakeWord: both train a small model for each wake word from synthetic speech (openWakeWord on Linux-class CPUs, its pretrained models CC BY-NC-SA 4.0; microWakeWord on the ESP32-S3 with ESPHome, Apache 2.0). Phonlet Wake needs no training run: one model hears the sounds of English, so a new phrase is its pronunciations and two thresholds, made from text in seconds, and many phrases share one 1 MB model from browsers to the ESP32-S3. No accuracy comparison is published before a benchmark.
+
+## Docs
+
+- [Start with a sound.](https://phonletai.com/docs/): What Phonlet Wake is, what you can try today, and how to get your own phrase.
+- [Your first wake word.](https://phonletai.com/docs/wake-word/): Use the WebAssembly runtime and model bundled with this website.
+- [Phonlet Wake for Node.js.](https://phonletai.com/docs/nodejs/): A native add-on with the engine built in, for services, tools, and Linux apps.
+- [Phonlet Wake for Python.](https://phonletai.com/docs/python/): A wheel with the engine built in, for prototypes, research, and Linux devices.
+- [Phonlet Wake in C and C++.](https://phonletai.com/docs/c/): One header and one library for native apps, embedded Linux, and your own SDK.
+- [Phonlet Wake on Android.](https://phonletai.com/docs/android/): An AAR with the engine built for every common Android CPU.
+- [Phonlet Wake on ESP32-S3.](https://phonletai.com/docs/esp32/): The ESP-IDF component: measured CPU, memory and delay, and how to build it in.
+- [Custom wake words from text.](https://phonletai.com/docs/custom-wake-words/): How a typed phrase becomes pronunciations and calibrated thresholds, and what makes a good one.
+- [Own the audio lifecycle.](https://phonletai.com/docs/audio-lifecycle/): Capture deliberately, process predictably, and clean up when the interaction ends.
+
+## Examples
+
+### Web (the browser SDK served by this website at /wake/)
+
+```js
+import { WakeManager } from '/wake/capture.mjs';
+
+// The en-1 model and a keyword file from the generator.
+const wake = new WakeManager({
+  wake: { model: '/wake/model.pwake', keywords: '/wake/keywords.json' },
+  onDetection: (event) => console.log('Wake word:', event.keyword),
+  onError: (error) => console.error(error),
+});
+
+// Asks for the microphone; detection runs in a worker.
+export const start = () => wake.start();
+export const stop = () => wake.close();
+```
+
+### Node.js
+
+The Node.js SDK is a Node-API add-on with the engine compiled in. Installing it compiles nothing and downloads nothing. It is tested on Node 24 on Linux x64.
+
+```js
+import { Wake } from '@phonlet-ai/wake-node';
+
+// A phrase is its pronunciations and two calibrated thresholds.
+const heyKettle = {
+  name: 'hey kettle',
+  pronunciations: [[16, 13, 20, 11, 31, 3, 21]],
+  threshold_loose: -1.21875,
+  threshold_strict: -0.8740234375,
+  endpoint: true,
+};
+
+// One engine and one model for every phrase.
+const wake = await Wake.create({
+  model: 'en-1.pwake',
+  keywords: [heyKettle],
+  sensitivity: 0.5,
+});
+
+// Push 16 kHz mono Int16 PCM in chunks of any size.
+export function onAudio(pcm) {
+  for (const hit of wake.process(pcm)) {
+    console.log('Wake word:', hit.keyword);
+  }
+}
+
+// Release native memory when you are done.
+export function close() {
+  wake.close();
+}
+```
+
+- Make a keyword file for your phrases with the generator: each phrase gets its pronunciations and its loose and strict thresholds, calibrated for this model.
+- Create one Wake with the model and your phrases, each with its own sensitivity if you like. Pass the keyword file from the generator as a path, as the parsed object, or as phrases written in code; a file that names its model is checked against it by SHA-256.
+- Call process() with Int16Array chunks; it returns the detections in that chunk.
+- Call close() when you are done. finish() and close() are safe to call twice.
+- Audio is mono, 16 kHz, signed 16-bit PCM. Push chunks of any size; the engine buffers them into 512-sample (32 ms) frames.
+- A phrase always comes with its thresholds: they are calibrated for that phrase and that model, and the engine needs them to decide when it was said. The generator makes them from text (phonletai.com/generator, or the wake-threshold command) and writes them into your keyword file.
+- process() is synchronous. Run the instance in a worker thread if your application cannot block the event loop.
+- Each detection carries the phrase, its index, the frame, and a timestamp at the end of the frame.
+- CommonJS and ES modules expose the same exports, with TypeScript declarations included.
+
+### Python
+
+The Python SDK is a wheel that bundles the engine and uses NumPy. It needs no compiler, lexicon, or network at runtime. It is tested on CPython 3.12 on Linux x64.
+
+```python
+from phonlet_wake import Wake
+
+# A phrase is its pronunciations and two calibrated thresholds.
+hey_kettle = {
+    "name": "hey kettle",
+    "pronunciations": [[16, 13, 20, 11, 31, 3, 21]],
+    "threshold_loose": -1.21875,
+    "threshold_strict": -0.8740234375,
+    "endpoint": True,
+}
+
+# One engine and one model for every phrase.
+with Wake.create(model="en-1.pwake", keywords=[hey_kettle],
+                 sensitivity=0.5) as wake:
+    # Push 16 kHz mono int16 NumPy arrays in chunks of any size.
+    for pcm in audio_chunks():  # your microphone or file
+        for hit in wake.process(pcm):
+            print("Wake word:", hit.keyword)
+```
+
+- Make a keyword file for your phrases with the generator: each phrase gets its pronunciations and its loose and strict thresholds, calibrated for this model.
+- Create a Wake with the model and your phrases, inside a with block so it closes on success and on errors. Pass the keyword file from the generator as a path, as the parsed dict, or as phrases written in code; a file that names its model is checked against it by SHA-256.
+- Pass int16 NumPy arrays to process(); it returns the detections in that chunk.
+- Call finish() at the end of a stream to see how many trailing samples did not fill a frame.
+- Audio is mono, 16 kHz, signed 16-bit PCM. Push chunks of any size; the engine buffers them into 512-sample (32 ms) frames.
+- A phrase always comes with its thresholds: they are calibrated for that phrase and that model, and the engine needs them to decide when it was said. The generator makes them from text (phonletai.com/generator, or the wake-threshold command) and writes them into your keyword file.
+- Each detection has keyword_id, keyword, keyword_index, frame_index, sample_index, time_seconds, and the sensitivity used.
+- Microphone input is an optional extra (sounddevice with PortAudio); detection itself has no audio dependency.
+
+### C / C++
+
+The C API is one header, phonlet_wake.h, and one library: the supported, stable public interface of the engine. It is tested on Linux x64; the Android and ESP32-S3 SDKs are built on it.
+
+```c
+#include <stdio.h>
+#include "phonlet_wake.h"
+
+// A phrase is its pronunciations and two calibrated thresholds.
+static const char *keywords =
+    "[{\"name\": \"hey kettle\","
+    "  \"pronunciations\": [[16, 13, 20, 11, 31, 3, 21]],"
+    "  \"threshold_loose\": -1.21875,"
+    "  \"threshold_strict\": -0.8740234375,"
+    "  \"endpoint\": true}]";
+
+static pw_wake *wake;
+
+// One engine and one model for every phrase.
+int start(void) {
+  const double sensitivity[] = {0.5}; // one per phrase
+  return phonlet_wake_init("en-1.pwake", keywords, sensitivity, 1,
+                           &wake);
+}
+
+// Push 16 kHz mono int16 PCM in chunks of any size.
+void on_audio(const int16_t *pcm, int32_t samples) {
+  int32_t fired = -1;
+  if (phonlet_wake_process(wake, pcm, samples, &fired) == PW_OK
+      && fired >= 0)
+    printf("Wake word: %d\n", fired);
+}
+
+// Release the session when you are done.
+void stop(void) { phonlet_wake_delete(wake); }
+```
+
+- phonlet_wake_init() loads the model from a path; phonlet_wake_init_bytes() takes it from memory, for example from flash.
+- Pass the keyword file from the generator as JSON text (or just its phrase array); phonlet_wake_keyword_count() tells you how many phrases it holds. Give one sensitivity per phrase, from 0 (fewest false alarms) to 1 (most responsive).
+- phonlet_wake_process() reports the index of the first phrase detected in that call, or -1.
+- phonlet_wake_delete() releases the session; phonlet_wake_error() describes the last error on this thread.
+- Audio is mono, 16 kHz, signed 16-bit PCM. Push chunks of any size; the engine buffers them into 512-sample (32 ms) frames.
+- A phrase always comes with its thresholds: they are calibrated for that phrase and that model, and the engine needs them to decide when it was said. The generator makes them from text (phonletai.com/generator, or the wake-threshold command) and writes them into your keyword file.
+- One session is one continuous audio stream. Use one session per stream and per thread.
+- Because each call reports its first detection, push short chunks (for example one I2S or audio-callback buffer) rather than long recordings.
+
+### Android
+
+The Android SDK is an AAR with the engine compiled natively for arm64-v8a, armeabi-v7a, and x86_64, and a small Java API you can call from Kotlin or Java.
+
+```kotlin
+// A phrase is its pronunciations and two calibrated thresholds.
+val keywords = """
+    [{"name": "hey kettle",
+      "pronunciations": [[16, 13, 20, 11, 31, 3, 21]],
+      "threshold_loose": -1.21875,
+      "threshold_strict": -0.8740234375,
+      "endpoint": true}]
+""".trimIndent()
+
+// One engine and one model for every phrase.
+val model = assets.open("en-1.pwake").readBytes()
+val wake = Wake.create(model, keywords, 0.5) // one per phrase
+
+// Push 16 kHz mono PCM from AudioRecord in chunks of any size.
+fun onAudio(pcm: ShortArray, samples: Int) {
+    val fired = wake.process(pcm, 0, samples) // -1: nothing
+    if (fired >= 0) Log.i("Wake", "Wake word: $fired")
+}
+
+// Release native memory when you are done.
+fun close() = wake.close()
+```
+
+- Ship the model as an app asset and pass the keyword file from the generator as JSON text (or just its phrase array), inline or from an asset.
+- Create one Wake with one sensitivity per phrase. It is AutoCloseable, so use() or close() releases it.
+- Record with AudioRecord at 16 kHz mono and pass each buffer to process(); it returns the phrase index or -1.
+- Audio is mono, 16 kHz, signed 16-bit PCM. Push chunks of any size; the engine buffers them into 512-sample (32 ms) frames.
+- A phrase always comes with its thresholds: they are calibrated for that phrase and that model, and the engine needs them to decide when it was said. The generator makes them from text (phonletai.com/generator, or the wake-threshold command) and writes them into your keyword file.
+- Ask for the microphone permission after a deliberate user action, and stop recording when your screen or service stops.
+- One Wake is one continuous stream; keep it on the thread that reads the microphone.
+
+### ESP32-S3
+
+ESP-IDF component; about 19% of one core at the default setting (measured on an ESP32-S3-N16R8, ESP-IDF 5.4, six phrases).
+
+```c
+#include <stdio.h>
+#include "esp_wake.h"
+
+// A phrase is its pronunciations and two calibrated thresholds.
+static const char keywords[] =
+    "[{\"name\": \"hey kettle\","
+    "  \"pronunciations\": [[16, 13, 20, 11, 31, 3, 21]],"
+    "  \"threshold_loose\": -1.21875,"
+    "  \"threshold_strict\": -0.8740234375,"
+    "  \"endpoint\": true}]";
+
+// The model, embedded in flash.
+extern const uint8_t model[] asm("_binary_model_pwake_start");
+extern const uint8_t model_end[] asm("_binary_model_pwake_end");
+
+static pw_wake *wake;
+
+void start(void) {
+  if (esp_wake_begin(model, model_end - model, keywords, 0.5f,
+                     &wake) != PW_OK)
+    printf("Wake init failed: %s\n", phonlet_wake_error());
+}
+
+// Push 16 kHz mono int16 PCM from the I2S microphone.
+void on_audio(const int16_t *pcm, int32_t samples) {
+  int32_t fired;
+  esp_wake_feed(wake, pcm, samples, &fired);
+  if (fired >= 0)
+    printf("Wake word: %s\n", esp_wake_keyword_name(fired));
+}
+```
+
+## Optional
+
+- [Contact](https://phonletai.com/contact/): commercial licences, help with phrases and hardware.
+- [Source and SDKs](https://github.com/phonlet-ai/wake) and [release downloads](https://github.com/phonlet-ai/wake/releases/tag/v0.1.0) on GitHub.
+- [The en-1 model on Hugging Face](https://huggingface.co/phonletai/wake-en-1) and [the lab as a Space](https://huggingface.co/spaces/phonletai/wake).
