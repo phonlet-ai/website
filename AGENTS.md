@@ -1,6 +1,7 @@
 # AGENTS.md — Phonlet website
 
-The site of Phonlet Wake, at phonletai.com. Read this and [PLAN.md](PLAN.md) first. The product
+The site of Phonlet Wake, at phonletai.com. Read this first; the maintainers keep decisions and
+verification notes in a local `PLAN.md` that is not part of the repository. The product
 itself (engine, model, SDKs, generator) lives in
 [phonlet-ai/wake](https://github.com/phonlet-ai/wake).
 
@@ -28,8 +29,9 @@ browser tests. Every page is prerendered into `out/` and served by GitHub Pages.
   in the comparison (`/#compare`): the cards (openWakeWord and microWakeWord, from their READMEs)
   and the benchmark table (`lib/benchmark.ts`). Comparative accuracy claims come only from the
   published benchmark (`docs/benchmark.md` in the wake repository), with its numbers unchanged.
-- **Claims match evidence.** Every figure names its source in PLAN.md: ESP32-S3 numbers are the
-  ones measured on hardware, memory and CPU figures name the build and the measurement. Never
+- **Claims match evidence.** Every figure names its source next to it in the code (for example
+  `components/footprint.tsx`) or in the wake repository: ESP32-S3 numbers are the ones measured on
+  hardware, memory and CPU figures name the build and the measurement. Never
   present a preview as live inference or an estimate as a measurement.
 - **Licence copy.** Free for non-commercial use under PolyForm Noncommercial 1.0.0; commercial use
   by contact. No licence keys, locks or online checks.
@@ -58,7 +60,7 @@ npm run test:e2e     # Playwright against the running server (axe at 1440 and 39
 ```
 
 Review desktop and phone screenshots in both themes for visual changes. Record what was verified
-in PLAN.md and in the commit message.
+in the commit message.
 
 ## Next.js 16
 

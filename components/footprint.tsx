@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-// Measured figures (sources in PLAN.md):
+// Measured figures, each with its measurement:
 // - model: resources/wake/model.pwake, 1,013,825 bytes (int8 weights).
 // - laptop: the C API on Linux x64 (AMD Ryzen 7 7735HS), en-1 with this site's four phrases:
 //   1,044 KB for a session, 1,076 KB after 5 s of audio; each extra phrase about 1.5 KB

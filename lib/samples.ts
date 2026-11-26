@@ -52,7 +52,7 @@ export const keywordFileCode = `{
 }`;
 
 // The SDK examples below run against the Phonlet Wake SDKs, not this website, so the browser
-// test cannot run them. Each was run as shown (with real audio) before publishing; see PLAN.md.
+// test cannot run them. Each was run as shown (with real audio) before publishing.
 export const nodeCode = `import { Wake } from '@phonlet-ai/wake-node';
 
 // A phrase is its pronunciations and two calibrated thresholds.
