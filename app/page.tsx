@@ -110,7 +110,7 @@ const faq = [
   ],
   [
     'How accurate is it?',
-    'On Picovoice’s public wake-word benchmark Phonlet Wake detects 92.2% of the test words in 10 dB noise at 0.1 false alarms per hour, with phrases typed as text, and 98.6% without noise. Every phrase is calibrated to a false-alarm target, from about 10 per hour of speech at full sensitivity to 0.1.',
+    'On Picovoice’s public wake-word benchmark Phonlet Wake detects 94.9% of the test words in 10 dB noise at 0.1 false alarms per hour, with phrases typed as text, and 99.2% without noise. Every phrase is calibrated to a false-alarm target, from about 10 per hour of speech at full sensitivity to 0.1.',
   ],
   [
     'How is it different from openWakeWord and microWakeWord?',

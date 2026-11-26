@@ -15,7 +15,7 @@ export const benchmarkMethodUrl = `${repoUrl}/blob/main/docs/benchmark.md`;
 
 export const benchmarkRows: BenchmarkRow[] = [
   { engine: 'Picovoice Porcupine v4', kind: 'closed, a model per word', hit: 97.3 },
-  { engine: 'Phonlet Wake 0.1.0', kind: 'typed, no training', hit: 92.2, ours: true },
+  { engine: 'Phonlet Wake 0.1.0', kind: 'typed, no training', hit: 94.9, ours: true },
   { engine: 'Hark v0.3', kind: 'typed, no training', hit: 78.1 },
   { engine: 'Kitt.ai Snowboy', kind: 'recorded templates', hit: 68.1 },
   { engine: 'sherpa-onnx KWS 3.3M', kind: 'typed, no training', hit: 66.0 },
