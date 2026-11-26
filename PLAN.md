@@ -2,11 +2,13 @@
 
 The site is live at phonletai.com, served by GitHub Pages. Open work, lowest first:
 
-- [ ] Add the benchmark page once a recognition benchmark exists (no comparative accuracy claims
-      before it).
 - [ ] A 30-second video of the ESP32-S3 demo.
 
 ## Done
+
+- [x] 2026-11-27 Benchmark in the comparison section and the accuracy answer: Picovoice's public
+      wake-word benchmark, hit rate at 0.1 false alarms per hour, 10 dB noise, six words; Phonlet
+      Wake 92.2% (measured, wake repository `docs/benchmark.md`), other engines as published.
 
 - [x] 2026-11-24 Hugging Face: the footer links GitHub and the phonletai organisation, and
       `agents.md` and `llms.txt` link the `en-1` model and the lab Space (`lib/release.ts`).

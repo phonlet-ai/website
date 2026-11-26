@@ -1510,6 +1510,80 @@ html:not(.motion-ready) .meter-bar i {
   text-underline-offset: 3px;
 }
 
+/* ---------- Benchmark ---------- */
+.bench {
+  margin-top: 28px;
+  padding: clamp(22px, 3vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--white);
+}
+.bench h3 {
+  font-size: clamp(24px, 2.6vw, 32px);
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+.bench > p {
+  max-width: 70ch;
+  margin-top: 10px;
+  color: var(--muted);
+}
+.bench-table {
+  width: 100%;
+  margin-top: 22px;
+  border-collapse: collapse;
+}
+.bench-table th,
+.bench-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+.bench-table thead th {
+  font: var(--text-label) var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bench-table tbody th {
+  font-weight: 500;
+}
+.bench-table td:nth-child(2) {
+  color: var(--muted);
+  font-size: 14px;
+}
+.bench-table td:last-child {
+  width: 42%;
+  min-width: 160px;
+}
+.bench-bar {
+  display: inline-block;
+  width: calc(var(--v) * 0.78);
+  height: 14px;
+  margin-right: 10px;
+  border-radius: 4px;
+  background: light-dark(#a7a69c, #6f6e66);
+  vertical-align: middle;
+}
+.bench-value {
+  font: 500 14px var(--mono);
+  vertical-align: middle;
+}
+.bench-table tr.is-ours th {
+  color: var(--orange-text);
+}
+.bench-table tr.is-ours .bench-bar {
+  background: var(--orange);
+}
+.bench-table tbody tr:hover {
+  background: light-dark(#f4f1e8, #232320);
+}
+.bench-note {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
 /* ---------- Questions and closing ---------- */
 .faq .faq-list {
   max-width: 920px;
@@ -1594,6 +1668,14 @@ html:not(.motion-ready) .meter-bar i {
   }
 }
 @media (max-width: 720px) {
+  .bench-table td:nth-child(2),
+  .bench-table thead th:nth-child(2) {
+    display: none;
+  }
+  .bench-table td:last-child {
+    width: auto;
+    min-width: 0;
+  }
   .compare-card dl > div {
     display: block;
   }

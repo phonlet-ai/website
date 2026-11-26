@@ -27,6 +27,7 @@ import {
   wakeCode,
 } from '@/lib/samples';
 import './home.css';
+import { benchmarkMethodUrl, benchmarkRows } from '@/lib/benchmark';
 
 const codeTabs: CodeTab[] = [
   {
@@ -109,7 +110,7 @@ const faq = [
   ],
   [
     'How accurate is it?',
-    'Every phrase is calibrated to a false-alarm target, from about 10 per hour of speech at full sensitivity to 0.1, and reports how reliable that calibration is. Accuracy depends on the phrase and the room, so try yours above. We publish no comparative claims before a benchmark with its method.',
+    'On Picovoice’s public wake-word benchmark Phonlet Wake detects 92.2% of the test words in 10 dB noise at 0.1 false alarms per hour, with phrases typed as text, and 98.6% without noise. Every phrase is calibrated to a false-alarm target, from about 10 per hour of speech at full sensitivity to 0.1.',
   ],
   [
     'How is it different from openWakeWord and microWakeWord?',
@@ -466,12 +467,41 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <div className="bench" data-reveal>
+          <h3>On Picovoice’s wake-word benchmark</h3>
+          <p>Hit rate at 0.1 false alarms per hour, 10 dB noise, six words. Higher is better.</p>
+          <table className="bench-table" aria-label="Benchmark hit rates by engine">
+            <thead>
+              <tr>
+                <th scope="col">Engine</th>
+                <th scope="col">How a word is made</th>
+                <th scope="col">Hit rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {benchmarkRows.map((row) => (
+                <tr key={row.engine} className={row.ours ? 'is-ours' : undefined}>
+                  <th scope="row">{row.engine}</th>
+                  <td>{row.kind}</td>
+                  <td>
+                    <span className="bench-bar" style={{ ['--v' as string]: `${row.hit}%` }} />
+                    <span className="bench-value">{row.hit.toFixed(1)}%</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="bench-note">
+            Phonlet Wake measured by us, phrases typed as text; other engines as published.{' '}
+            <a href={benchmarkMethodUrl}>Full results and sources</a>.
+          </p>
+        </div>
         <p className="licence-note mono" data-reveal>
           From each project’s README and the{' '}
           <a href="https://www.home-assistant.io/blog/2024/02/21/voice-chapter-6/">
             Home Assistant blog
           </a>
-          , November 2026. No accuracy comparison until a benchmark with its method is published.
+          , November 2026.
         </p>
       </section>
 
